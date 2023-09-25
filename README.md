@@ -14,7 +14,7 @@ The code implements random data augment SVM, knowledge data augment SVM, and com
 mv gop_speechocean762 gop_chinese
 cd gop_chinese/s5
 ./aug_run.sh
-···
+/···
 
 
 revising......
