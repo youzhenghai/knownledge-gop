@@ -12,8 +12,8 @@ parser.add_argument('output_all_path', help='output path')
 parser.add_argument('phone_path', help='path path')
 parser.add_argument('ini_path', help='ini err path')
 parser.add_argument('vow_path', help='vow err mat path')
-parser.add_argument('err_path', help='confusion mat path')  # 限制所需训练的PH 测试用不需要
-parser.add_argument('count_ph_path', help='test ph count')   # 测试用不需要
+parser.add_argument('err_path', help='confusion mat path')  # debug
+parser.add_argument('count_ph_path', help='test ph count')   # debug
 parser.add_argument('--seed', type=int, default=1453, help='seed') 
 args = parser.parse_args()
 
@@ -23,12 +23,8 @@ zh_count = 0
 plus_err = 2
 random_err_up = 0.10
 
-# def seeded_random(ph):
-#     # 使用 ph 作为种子来产生一个确定的随机序列
-#     r = random.Random(ph)
-#     return r.random()
 
-# 指定 json 数据文件所在目录
+
 data_directory = args.input_path
 
 # 创建保存 替换后 的 ali-phone 数据的目录
@@ -62,7 +58,7 @@ mat_dict = {}
 
 tone_dict = {"1": {"2": 0.03, "3": 0.006, "4": 0.017}, "2": {"1": 0.012, "3": 0.043, "4": 0.008},"3": {"1": 0.01, "2": 0.06, "4": 0.02},"4": {"1": 0.019, "2": 0.03, "3": 0.007},"5": {"1": 0.01,  "4": 0.02}}
 
-# 读取phone.txt文件，构建phone_id替换字典
+
 phone_dict = {}
 phone_id_dict = {}
 with open(phone_path, 'r') as file:
@@ -78,45 +74,45 @@ with open(phone_path, 'r') as file:
             phone_id_dict[phone_sym] = []
         phone_id_dict[phone_sym].append(phone_id)
 
-# 为err_dict.keys()转化为数字
+
 err_keys_as_numbers = []
 
 for key in err_dict.keys():
-    # 这里我假设phone_id_dict[key]返回的是一个数字列表，我只取第一个数字
+    
     if key in phone_id_dict:
         err_keys_as_numbers.append(str(phone_id_dict[key][0]))
 
-# 为count_ph_dict.keys()转化为数字
+
 count_ph_dict_number = []
 
 for key in count_ph_dict.keys():
-    # 这里我假设phone_id_dict[key]返回的是一个数字列表，我只取第一个数字
+
     if key in phone_id_dict:
         count_ph_dict_number.append(str(phone_id_dict[key][0]))
 
-#print(phone_id_dict)
 
-# 遍历目录下的文件
+
+
 for filename in os.listdir(data_directory):
     if filename.startswith('ali-phone-json.'):
-        # 构造文件路径
+   
         file_path = os.path.join(data_directory, filename)
 
-        # 保存处理后的数据到同名文件
+
         output_filename = filename.replace('ali-phone-json.', 'ali-phone.')
         output_file_path = os.path.join(output_directory, output_filename)
 
-        # 处理文件数据
+
         with open(file_path, 'r') as file:
-            # 读取文件内容
+    
             data = json.load(file)      
 
-        # 对嵌套字典进行随机替换
+        # change phone
         with open(output_file_path, 'w') as output_file:
             all_ph_count = 0
             all_zero_count = 0
             for sentence_id, sentence_data in data.items():
-                # 创建一个列表用于记录pos_cur和音素替换信息
+
                 pos_scores = []
                 write_line = sentence_id + " "
                 pos_none_count = -1
@@ -176,7 +172,7 @@ for filename in os.listdir(data_directory):
                                     #if err_phone == 'spn':
                                     #    change_phone_id_temp  = '2'
                                     #else:
-                                    #不同于新疆数据的，且没法有对应关系的特殊音素情况，在概率下直接转换为对应错误
+
                                     if err_phone == "iz" :
                                         change_phone_id_temp = str(phone_id_dict[ str(err_phone) + str(4)]).strip("['']")  
                                     elif err_phone == "er" and tone == "1":    

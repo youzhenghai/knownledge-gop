@@ -112,13 +112,13 @@ best_tpr = tpr[youden_index]
 
 
 
-# 计算PR曲线的精确率（Precision）和召回率（Recall）
+# PR （Precision）（Recall）
 precision, recall, thresholds_pr = precision_recall_curve(all_y_true, all_y_scores)
-# 找到最接近的precision的索引
+# precision index
 index = np.abs(precision - 0.28).argmin()
-# 获取对应的recall和thresholds_pr
+
 required_recall = recall[index]
-# 注意：thresholds_pr的长度可能比precision和recall的长度少1，所以要进行检查
+
 if index < len(thresholds_pr):
     required_precision = precision[index]
     required_threshold = thresholds_pr[index]
@@ -227,8 +227,8 @@ sorted_zero_counts = sorted(zero_counts.items(),key=lambda d: d[1], reverse=True
 
 sys.stderr = sys.__stderr__
 
-# 检查log文件是否为空
+
 if os.stat(log_file_path).st_size == 0:
-    # 如果log文件为空，则删除它
+    
     os.remove(log_file_path)
 

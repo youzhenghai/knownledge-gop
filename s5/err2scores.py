@@ -16,7 +16,7 @@ scores_path = args.scores_path
 output_path = args.output_path
 phone_path = args.phone_path   # pure-phone
 
-# 读取phone.txt文件，构建phone_id替换字典
+
 phone_dict = {}
 with open(phone_path, 'r') as file:
     lines = file.readlines()
@@ -31,16 +31,12 @@ with open(pos_scores_path, "r") as file:
     for line in file:
         data = line.strip()
 
-        # 提取句子序号
         sentence_index = data.split()[0]
 
-        # 去除句子序号后的空格，然后以"pos:"进行分割
         pos_data = data.replace(sentence_index, "").strip().split("pos:")
 
-        # 创建内部字典
         inner_dict = {}
 
-        # 处理pos数据
         for pos in pos_data[1:]:
             pos_values = pos.strip().split()
             pos_num = int(pos_values[0])
@@ -49,14 +45,11 @@ with open(pos_scores_path, "r") as file:
             inner_dict[pos_num] = {"ph": ph, "next_ph": next_ph}
 
         nested_dict[sentence_index] = inner_dict
-#print(nested_dict)
-# 读取 scores.json 文件
 with open(scores_path, "r") as file:
     scores_dict = json.load(file)
 
 phone_accuracy_sum = 0
 
-# 遍历 nested_dict
 for sentence_index, pos_dict in nested_dict.items():
     if sentence_index in scores_dict:
         
@@ -79,17 +72,12 @@ for sentence_index, pos_dict in nested_dict.items():
                     scores_dict[sentence_index]['words'][iter]['phones'][pos_num] = str(phone_dict[str(values["next_ph"])]).strip("['']")
                     #print(scores_dict[sentence_index]['words'][iter]['phones-accuracy'])
                     break
-                
-            
-            
-
 #print(phone_list)\
 
 # if os.path.exists(output_path + "/scores.json"):
 #         shutil.rmtree(output_dir_feats)
 #         print("The scores.json has been deleted successfully!")
 
-# 保存 scores_dict 到 ali_err_scores.json 文件
 with open(output_path +"/ali_err_scores.json", "w", encoding="utf-8") as file:
     json.dump(scores_dict, file, ensure_ascii=False, indent=4)
 

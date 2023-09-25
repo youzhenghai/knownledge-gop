@@ -45,7 +45,7 @@ def train_model_for_phone(label_feat_pairs, ph):
     #model = SVC() 
     model = SVC(class_weight=weights)
     labels, feats = list(zip(*label_feat_pairs))
-    labels = np.array(labels)  # <-- Remove the reshape here
+    labels = np.array(labels)  
     feats = np.array(feats).reshape(-1, len(feats[0]))
     print(f"fitting '{ph}' model ")
 
