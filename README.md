@@ -1,1 +1,3 @@
 # knownledge-gop
+
+revising......
