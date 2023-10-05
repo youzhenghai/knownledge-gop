@@ -7,6 +7,7 @@ import numpy as np
 from sklearn import metrics
 from utils import load_human_scores, load_phone_symbol_table
 
+#phones are used in uy/child data
 #shengmus = ['b','p','d','t','g','k','f','h','x','sh','r','s','z','c','zh','ch','j','q','m','n','l','*']
 #yunmus = ['a','o','e','i','ii','iii','u','v','er','ai','ei','ao','ou','iu','ia','ie','ua','uo','ve','iao','uai','an','ang','ian','uan','un','ui','van','en','eng','in','ing','vn','iang','uang','ong','iong','*']
 

@@ -49,7 +49,7 @@ for filename in os.listdir(data_folder):
         #y_scores = np.exp(y_scores)
         y_true = data[:, 1]
 
-        # # 统计scores为0的计数和0的个数
+        # #
         # zero_count = np.sum(y_true == 0)
         # bad_count = np.sum(y_scores < theshold_my)
         # bad_radio_count = bad_count/(np.size(y_scores)

@@ -27,7 +27,7 @@ random_err_up = 0.10
 
 data_directory = args.input_path
 
-# 创建保存 替换后 的 ali-phone 数据的目录
+
 output_directory = args.output_path
 os.makedirs(output_directory, exist_ok=True)
 
@@ -35,7 +35,7 @@ os.makedirs(output_directory, exist_ok=True)
 pos_scores_path = args.output_all_path
 phone_path = args.phone_path 
 
- #创建保存pos_cur和音素替换信息的文件
+
 pos_scores_file = open(pos_scores_path, 'w')
 
 ini_dict = {}
@@ -251,13 +251,13 @@ for filename in os.listdir(data_directory):
                     write_line += ( pos_data['ph'] + " ")*count
                     #write_line += " "                
                 output_file.write(write_line + '\n')
-                # 将pos_cur和音素替换信息写入文件
+
                 pos_scores_file.write(f"{sentence_id} ")
                 for pos_score in pos_scores:
                     pos_scores_file.write(f"pos: {pos_score[0]} {pos_score[1]} {pos_score[2]} ")
                 pos_scores_file.write("\n")
                 all_ph_count += (pos_none_count + 1)
- # 关闭pos_scores文件
+
 pos_scores_file.close()
 print("phone no err list:")
 print(err_dict)

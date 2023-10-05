@@ -9,25 +9,20 @@ parser.add_argument('output_path', help='output path')
 args = parser.parse_args()
 
 
-# 指定 解压后ali-phone文件所在目录
+
 data_directory = args.input_path
 
-# 创建保存处理 的 对齐ph和帧数 json数据的目录
+# ali-phone  to json
 output_directory = args.output_path
 os.makedirs(output_directory, exist_ok=True)
 
-# 遍历目录下的文件
+
 for filename in os.listdir(data_directory):
     if filename.startswith('ali-phone.'):
-        # 构造文件路径
-        file_path = os.path.join(data_directory, filename)
-
-        # 处理文件数据
-        with open(file_path, 'r') as file:
-            # 读取文件内容
+        
+        file_path = os.path.join(data_directory, filename)      
+        with open(file_path, 'r') as file:         
             lines = file.readlines()
-
-            # 进行数据处理操作
             data = {}
 
             for line in lines:
@@ -35,7 +30,6 @@ for filename in os.listdir(data_directory):
                 sentence_id = (line_data[0])
                 numbers = line_data[1:]
                 #print(sentence_id)
-
                 if sentence_id not in data:
                     data[sentence_id] = {}
                 else:
@@ -58,10 +52,8 @@ for filename in os.listdir(data_directory):
                         print("ali err")
                     current_number = next_number
 
-        # 保存处理后的数据到同名文件
         output_filename = filename.replace('ali-phone.', 'ali-phone-json.')
         output_file_path = os.path.join(output_directory, output_filename )
 
         with open(output_file_path, 'w') as output_file:
-            # 将数据保存为JSON文件
             json.dump(data, output_file)

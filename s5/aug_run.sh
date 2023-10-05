@@ -29,7 +29,7 @@ for d in $model $lang; do
   [ ! -d $d ] && echo "$0: no such path $d" && exit 1;
 done
 
-#----------------------------------------------------------- Data format ?
+
 # if [ $stage -le 1 ]; then
 #   # Download data and untar
 #   local/download_and_untar.sh $data_url $data
@@ -69,7 +69,7 @@ fi
 #   local/prepare_dict.sh data/local/lexicon.txt data/local/dict_nosp
 
 #   utils/prepare_lang.sh --phone-symbol-table $lang/phones.txt \
-#     data/local/dict_nosp "<UNK>" data/local/lang_tmp_nosp data/lang_nosp
+#     data/local/dict_nosp "<SPOKEN_NOISY>" data/local/lang_tmp_nosp data/lang_nosp
 # fi
 
 if [ $stage -le 6 ]; then
@@ -120,7 +120,7 @@ if [ $stage -le 9 ]; then
   done
 fi
 
-# random ali_scores 
+# knowledge random ali_scores 
 if [ $stage -le 10 ]; then
 
   echo "knowledge ali_scores"
@@ -137,13 +137,13 @@ if [ $stage -le 10 ]; then
                          data/local/error_rates.json\
                          data/local/count_ph.json
   python3 err2scores.py exp/ali_train_know_random/pos_scores.txt \
-                        data/local/scores.json \
+                        data/local/scores.json \ 
                         exp/ali_train_know_random/ \
                         $lang/phones-pure.txt  || exit 1;
   gzip  exp/ali_train_know/ali-phone*
   echo " finish know ali-phone err "
 fi
-
+# random ali_scores 
 if [ $stage -le 11 ]; then
   echo "random ali_scores"
 
@@ -162,7 +162,7 @@ if [ $stage -le 11 ]; then
   echo " finish random ali-phone err "
 fi
 
-
+# compute gop & gop features
 if [ $stage -le 12 ]; then
   for part in train_know train_random; do
   echo "compute $part gop"
@@ -195,6 +195,8 @@ fi
 
 local/check_dependencies.sh   || exit 1;
 
+
+# train and test
 if [ $stage -le 16 ]; then
 
   for input in feat; do
@@ -242,7 +244,7 @@ if [ $stage -le 16 ]; then
   done
 fi
 
-
+# delete fuzzy information
 if [ $stage -le 17 ]; then
 
   for input in feat; do
@@ -257,7 +259,7 @@ if [ $stage -le 17 ]; then
   done
 fi
 
-
+# PR curve and SVM point
 if [ $stage -le 18 ]; then
 
   echo "draw PR" 
