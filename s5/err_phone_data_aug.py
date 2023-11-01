@@ -190,6 +190,7 @@ for filename in os.listdir(data_directory):
                                     sum_err_p += (err_p*plus_err)                           
                             change_phone_id = None
                             if change_flag == 1:
+                                # uy/child special phoneme deal 
                                 if symbol == 'iz':
                                     change_phone_id = str(phone_id_dict[ str(symbol) + str(4)]).strip("['']") 
                                 elif err_phone == "er" and tone == "1":    

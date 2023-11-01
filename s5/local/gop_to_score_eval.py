@@ -7,6 +7,7 @@ import kaldi_io
 import numpy as np
 #from utils import round_score
 
+#from roc
 threshold = 0.80
 
 def get_args():

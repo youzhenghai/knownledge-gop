@@ -11,7 +11,7 @@
 
 data=/home/shiyinglocal/kaldi/egs/gop_chinese/s5/raw_data
 
-stage=17
+stage=0
 nj=40
 
 set -e
@@ -244,20 +244,20 @@ if [ $stage -le 16 ]; then
   done
 fi
 
-# delete fuzzy information
-if [ $stage -le 17 ]; then
+# # delete fuzzy information
+# if [ $stage -le 17 ]; then
 
-  for input in feat; do
-    echo "Modified Knowledge SVM" 
-    python3 re_save.py 
-    python3 local/print_predicted_result.py \
-              --phone_symbol_table $lang/phones-pure.txt \
-              --write exp/gop_test/result_feat.int \
-              data/local/scores_modified.json\
-              exp/gop_test/predicted_feat.txt  
+#   for input in feat; do
+#     echo "Modified Knowledge SVM" 
+#     python3 re_save.py 
+#     python3 local/print_predicted_result.py \
+#               --phone_symbol_table $lang/phones-pure.txt \
+#               --write exp/gop_test/result_feat.int \
+#               data/local/scores_modified.json\
+#               exp/gop_test/predicted_feat.txt  
 
-  done
-fi
+#   done
+# fi
 
 # PR curve and SVM point
 if [ $stage -le 18 ]; then
