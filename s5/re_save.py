@@ -20,7 +20,7 @@ for key, value in data.items():
 
                 if acc >= 3:
                     another_data[key]['words'][i]['phones-accuracy'][j] = 1
-                elif acc < 1:
+                elif acc <= 1:
                     another_data[key]['words'][i]['phones-accuracy'][j] = 0
                 else:
 

@@ -233,7 +233,7 @@ for filename in os.listdir(data_directory):
                             #     if random_phone_id == ph or random_phone_id == before_ph:
                             #         print("random ph err")
                             #         sys.exit()
-                            #     pos_scores.append((pos_none_count, ph, random_phone_id))  # 记录pos_cur和音素替换信息
+                            #     pos_scores.append((pos_none_count, ph, random_phone_id))  
                             #     print(sentence_id + " " + str(pos_none_count) + " "+ str(phone_dict[ph]) + "->" + str(phone_dict[random_phone_id]))
                             #     pos_data['ph'] = random_phone_id
                             #     before_ph  = random_phone_id
@@ -244,7 +244,7 @@ for filename in os.listdir(data_directory):
                             #     print("ph = 1 lim err")                           
                         elif ph == '1':
                             before_ph  = '1' 
-                            pass  # 不替换音素，保持为1
+                            pass  
                         else:
                             print("ph random err" + " lim:"+ str(lim) + " ph:"+ ph)
                     else:
