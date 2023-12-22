@@ -7,7 +7,7 @@
 #               2020-2021  Xiaomi Corporation (Author: Junbo Zhang, Yongqing Wang)
 
 # This script shows how to calculate Goodness of Pronunciation (GOP) in chinese and
-# use the data augmentation of GOP-based features to do phone-level  zero-shoot mispronunciations detection.
+# use the data augmentation of GOP-based features to do phone-level  zero-shot mispronunciations detection.
 
 data=/home/shiyinglocal/kaldi/egs/gop_chinese/s5/raw_data
 
